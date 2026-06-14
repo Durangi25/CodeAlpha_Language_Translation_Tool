@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Language Translation Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header">
+            <h1>Language Translation Tool</h1>
+            <p>Translate text between multiple languages using a simple AI-powered translation interface.</p>
+        </div>
+
+        <div class="translator-card">
+            <div class="language-row">
+                <div class="language-box">
+                    <label for="sourceLanguage">Source Language</label>
+                    <select id="sourceLanguage">
+                        {% for code, name in languages.items() %}
+                            <option value="{{ code }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="swap-icon">→</div>
+
+                <div class="language-box">
+                    <label for="targetLanguage">Target Language</label>
+                    <select id="targetLanguage">
+                        {% for code, name in languages.items() %}
+                            {% if code != "auto" %}
+                                <option value="{{ code }}" {% if code == "si" %}selected{% endif %}>{{ name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="text-area-row">
+                <div class="text-box">
+                    <label for="inputText">Enter Text</label>
+                    <textarea id="inputText" placeholder="Type your text here..."></textarea>
+                </div>
+
+                <div class="text-box">
+                    <label for="outputText">Translated Text</label>
+                    <textarea id="outputText" placeholder="Translated text will appear here..." readonly></textarea>
+                </div>
+            </div>
+
+            <div class="button-row">
+                <button id="translateBtn">Translate</button>
+                <button id="copyBtn" class="secondary-btn">Copy Text</button>
+                <button id="clearBtn" class="clear-btn">Clear</button>
+            </div>
+
+            <p id="statusMessage"></p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
